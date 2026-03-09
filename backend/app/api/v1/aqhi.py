@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Query
-
 from app.agents.aqhi_agent.agent import AQHIAgent
-from app.schemas.aqhi import AQHIResponse
+from app.services.geomet_client import GeoMetClient
 
 router = APIRouter(tags=["AQHI"])
-agent = AQHIAgent()
 
-@router.get("/aqhi", response_model=AQHIResponse)
-def get_aqhi(city: str = Query(..., min_length=2, max_length=64)):
-    result = agent.run(city)
-    return AQHIResponse.from_agent(result)
+@router.get("/aqhi")
+def get_aqhi(station_id: str = Query(...)):
+    client = GeoMetClient()
+    agent = AQHIAgent(client)
+    result = agent.run(station_id=station_id)
+    return result

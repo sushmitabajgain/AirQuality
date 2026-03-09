@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from datetime import datetime
 from typing import Optional, Literal
 
 RiskCategory = Literal["Low", "Moderate", "High", "Very High", "Unknown"]
@@ -13,7 +12,7 @@ class AgentLocation:
 class AgentObservation:
     aqhi: Optional[float]
     aqhi_type: Optional[str]
-    observed_at: Optional[datetime]
+    observed_at: Optional[str]
 
 @dataclass
 class AgentAdvice:
